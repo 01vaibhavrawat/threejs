@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>three</title>
+    </head>
+    <body>
+        <div id="priority"></div>
+        <script type="module">
+            import * as THREE from './three.m.js'
+            
+            var scene = new THREE.Scene();
+
+            var width = window.innerWidth;
+            var height = window.innerHeight;
+            var viewAngle = 45;
+            var nearClipping = 0.1;
+            var farClipping = 9999;
+
+            var camera = new THREE.PerspectiveCamera(viewAngle, width / height, nearClipping, farClipping);
+            camera.position.set(0, 0, 10);
+
+            var cubeGeometry = new THREE.BoxGeometry(2, 2, 2);
+            var cubeMaterial = new THREE.MeshBasicMaterial({color: "green"});
+            var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+            cube.position.set(0, 0, 0,)
+            scene.add(cube);
+
+            var renderer = new THREE.WebGLRenderer({antialize: true});
+            renderer.setSize(width, height);
+
+            var element = document.getElementById("priority");
+            element.appendChild(renderer.domElement);
+
+            function animate(){
+                cube.rotation.y += 0.01;
+                cube.rotation.x += 0.01;
+                requestAnimationFrame(animate);
+                renderer.render(scene, camera);
+            }
+            animate();
+        </script>
+    </body>
+</html>
